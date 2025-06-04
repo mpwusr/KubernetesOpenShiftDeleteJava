@@ -1,6 +1,6 @@
 import okhttp3.*;
 
-public class OpenshiftDeleteClass {
+public class OpenShiftAPIDeleteClass {
     public static void main(String[] args) throws Exception {
         String apiServer = "https://api.openshift.example.com:6443";
         String namespace = "default";
