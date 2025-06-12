@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import java.util.Map;
 
-public class OpenShiftApiCreate {
+public class OpenShiftApiDelete {
     public static void main(String[] args) throws Exception {
         Dotenv dotenv = Dotenv.configure().filename(".env").load();
 
