@@ -46,8 +46,8 @@ public class OpenShiftApiDelete {
             throw new IllegalArgumentException("Unsupported URI scheme for DEPLOYMENT_URI: " + deploymentUriStr);
         }
 
-        // Convert parsed YAML to JSON string
-        String jsonBody = new ObjectMapper().writeValueAsString(obj);
+        // Extract deployment name from metadata
+        String deploymentName = (String) ((Map<String, Object>) obj.get("metadata")).get("name");
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .sslSocketFactory(
@@ -56,13 +56,10 @@ public class OpenShiftApiDelete {
                 )
                 .build();
 
-        RequestBody body = RequestBody.create(jsonBody, MediaType.parse("application/json"));
-
         Request request = new Request.Builder()
-                .url(apiServer + "/apis/apps/v1/namespaces/" + namespace + "/deployments")
+                .url(apiServer + "/apis/apps/v1/namespaces/" + namespace + "/deployments/" + deploymentName)
                 .addHeader("Authorization", "Bearer " + token)
-                .addHeader("Content-Type", "application/json")
-                .delete(body)
+                .delete()
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
