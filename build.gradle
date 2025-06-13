@@ -4,7 +4,6 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
-
 repositories {
     mavenCentral()
 }
@@ -17,7 +16,7 @@ dependencies {
 }
 
 application {
-    mainClass = 'OpenShiftApiDelete'
+    mainClass = 'OpenShiftApiDelete' // Fully qualified class name if in a package
 }
 
 jar {
@@ -25,5 +24,12 @@ jar {
         attributes(
                 'Main-Class': application.mainClass.get()
         )
+    }
+}
+
+shadowJar {
+    archiveClassifier.set('all')
+    manifest {
+        attributes 'Main-Class': application.mainClass.get()
     }
 }
